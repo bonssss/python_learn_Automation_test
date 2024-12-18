@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 @pytest.fixture
 def driver():
     # Set up Chrome WebDriver
-    Service_obj = Service(r"C:\Users\bons\Documents\Website projects\python learn\Automation learn\CHROMEDRIVER.EXE")
+    Service_obj = Service(r"C:\Users\bons\Documents\Website projects\python learn\netryde\CHROMEDRIVER.EXE")
     driver = webdriver.Chrome(service=Service_obj)
     driver.maximize_window()
     driver.implicitly_wait(5)
