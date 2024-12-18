@@ -17,6 +17,7 @@ def pytest_addoption(parser):
     )
 def setup(request):
      # Set up Chrome WebDriver
+    request.config.getoptions("browser_name")
     Service_obj = Service(
         r"C:\Users\bons\Documents\Website projects\python learn\netryde\chromedriver-win64\CHROMEDRIVER.EXE")
     driver = webdriver.Chrome(service=Service_obj)
