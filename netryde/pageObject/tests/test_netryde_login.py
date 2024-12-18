@@ -8,6 +8,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from utilities.BaseClass import BaseClass
 
 
+# from utilities.BaseClass import BaseClass
+
+
 
 class TestNetryde(BaseClass):
 
@@ -53,4 +56,6 @@ class TestNetryde(BaseClass):
 
         assert "customer/book" in driver.current_url, "Login failed or incorrect page loaded."
         print("Login successful!")
+
+        time.sleep(10)
 
