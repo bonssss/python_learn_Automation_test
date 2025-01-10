@@ -10,7 +10,8 @@ from selenium.webdriver.support import expected_conditions as EC
 @pytest.fixture
 def driver():
     # Set up Chrome WebDriver
-    Service_obj = Service(r"C:\Users\bons\Documents\Website projects\python learn\netryde\CHROMEDRIVER.EXE")
+    Service_obj = Service(r"C:\Users\bons\Documents\Website_projects\python learn\netryde\CHROMEDRIVER.EXE")
+
     driver = webdriver.Chrome(service=Service_obj)
     driver.maximize_window()
     driver.implicitly_wait(5)
@@ -43,7 +44,7 @@ def test_login_and_trip_list(driver):
 
     # Wait for page to load
     WebDriverWait(driver, 10).until(
-        EC.url_to_be("https://nextdev.netryde.com/customer/book")
+        EC.url_to_be("https://nextdev.netryde.com/driver/trips")
     )
 
     time.sleep(15)  # Wait for the page to load and show the result

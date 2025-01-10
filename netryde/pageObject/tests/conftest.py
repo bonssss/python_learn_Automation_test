@@ -12,7 +12,7 @@ def setup(request):
      # Set up Chrome WebDriver
 
     Service_obj = Service(
-        r"C:\Users\bons\Documents\Website projects\python learn\netryde\chromedriver-win64\CHROMEDRIVER.EXE")
+        r"C:\Users\bons\Documents\Website_projects\python learn\netryde\chromedriver-win64\chromedriver.exe")
     driver = webdriver.Chrome(service=Service_obj)
     driver.maximize_window()
     driver.get("https://nextdev.netryde.com/")
