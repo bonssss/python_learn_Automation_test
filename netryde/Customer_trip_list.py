@@ -10,7 +10,8 @@ from selenium.webdriver.support import expected_conditions as EC
 @pytest.fixture
 def driver():
     # Set up Chrome WebDriver
-    Service_obj = Service(r"C:\Users\bons\Documents\Website projects\python learn\Automation learn\CHROMEDRIVER.EXE")
+    Service_obj = Service(r"C:\Users\bons\Documents\Website_projects\python learn\netryde\CHROMEDRIVER.EXE")
+
     driver = webdriver.Chrome(service=Service_obj)
     driver.maximize_window()
     driver.implicitly_wait(5)
@@ -27,7 +28,7 @@ def test_login_and_trip_list(driver):
     time.sleep(3)
     driver.find_element(By.XPATH, "(//button[@class='btn btn-black'][normalize-space()='Sign In'])[1]").click()
     driver.find_element(By.XPATH, "(//input[contains(@class,'form-control username')])[1]").send_keys(
-        "11@test.zprodev.com")
+        "cawela8559@nalwan.com")
     password_field = driver.find_element(By.XPATH, "(//input[@placeholder='Password'])[1]")
     password_field.send_keys("Test@123")
     show_password = driver.find_element(By.XPATH, "(//input[contains(@type,'checkbox')])[1]")
@@ -49,7 +50,8 @@ def test_login_and_trip_list(driver):
     # Navigate to the Trips page
     humburger_icon = driver.find_element(By.XPATH, "(//span[@class='burger-icon-bottom'])[1]")
     humburger_icon.click()
-    Trips = driver.find_element(By.XPATH, "(//a[normalize-space()='Trips'])[1]")
+    time.sleep(5)
+    Trips = driver.find_element(By.XPATH, "(//a[normalize-space()='Trips'])[2]")
     Trips.click()
 
     # Wait for trips section to load

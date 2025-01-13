@@ -67,7 +67,7 @@ def test_login_and_trip_list(driver):
     booked.click()
 
     time.sleep(5)
-    driver.execute_script("window.scrollBy(0, 100);")
+    driver.execute_script("window.scrollBy(0, 120);")
     started = WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.XPATH,
                                     "//div[@class='box-collapse scrollFilter d-none d-lg-block']//span[@class='text-sm-medium'][normalize-space()='Started']"))
