@@ -51,19 +51,47 @@ def test_login_and_trip_list(driver):
     humburger_icon = driver.find_element(By.XPATH, "(//span[@class='burger-icon-bottom'])[1]")
     humburger_icon.click()
     time.sleep(5)
-    Trips = driver.find_element(By.XPATH, "(//a[normalize-space()='Trips'])[2]")
-    Trips.click()
+    change_password = driver.find_element(By.XPATH, "(//a[normalize-space()='Change Password'])[1]")
+    change_password.click()
+    time.sleep(5)
+
+    current_password = driver.find_element(By.XPATH,"(//input[@placeholder='Current Password'])[1]")
+    current_password.send_keys("Test@123")
+    time.sleep(2)
+
+    new_password = driver.find_element(By.XPATH, "(//input[contains(@placeholder,'***********')])[1]")
+    new_password.send_keys("Test@123")
+    time.sleep(2)
+
+    confirm_password = driver.find_element(By.XPATH, "(//input[contains(@placeholder,'***********')])[2]")
+    confirm_password.send_keys("Test@123")
+
+    time.sleep(2)
+
+    # Wait for CAPTCHA completion
+    print("Please complete the CAPTCHA manually and press Enter to continue...")
+    input("Press Enter after completing CAPTCHA...")
+
+    submit_button = driver.find_element(By.XPATH,"(//button[normalize-space()='Submit'])[1]")
+
+    submit_button.click()
+
+    # success_message_element = WebDriverWait(driver, 10).until(
+    #     EC.visibility_of_element_located((By.XPATH, "(//div[@class='popup-container'])[1]"))
+    #     # Replace By.ID and "success-message" with the appropriate locator
+    # )
+    #
+    # # Retrieve the text from the success message element
+    # actual_message = success_message_element.text
+    #
+    # # Assert that the actual message matches the expected message
+    # expected_message = "Password reset successfully!"
+    # assert actual_message == expected_message, f"Expected message: '{expected_message}', but got: '{actual_message}'"
+
+
 
     # Wait for trips section to load
-    WebDriverWait(driver, 10).until(
-        EC.visibility_of_element_located((By.XPATH, "(//h6[contains(text(),'Trips')])[2]"))
-    )
 
-    # Verify if the trips section is visible
-    trips_element = driver.find_element(By.XPATH, "(//h6[contains(text(),'Trips')])[2]")
-    assert trips_element.is_displayed(), "Trips element not found or visible!"
-
-    print("Successfully displayed trip list")
 
     # Optionally, sleep to allow manual verification
     time.sleep(15)

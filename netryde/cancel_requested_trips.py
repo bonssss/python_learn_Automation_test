@@ -3,6 +3,7 @@ import time
 import pytest
 from selenium import webdriver
 from selenium.common import NoSuchElementException
+from selenium.webdriver import Keys
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -68,8 +69,8 @@ def test_login_and_trip_list(driver):
     print("Successfully displayed trip list")
 
     time.sleep(5)
-    pending_checkbok = driver.find_element(By.XPATH,"//div[@class='box-collapse scrollFilter d-none d-lg-block']//span[@class='text-sm-medium'][normalize-space()='Pending']")
-    pending_checkbok.click()
+    requested_checkbok = driver.find_element(By.XPATH,"(//span[@class='text-sm-medium'][normalize-space()='Requested'])[1]")
+    requested_checkbok.click()
     time.sleep(3)
     #
     # pending_detail = driver.find_element(By.XPATH,"(//div[@class='item-flight background-card border-1 d-flex'])[1]")
@@ -77,33 +78,44 @@ def test_login_and_trip_list(driver):
 
     try:
         # Check if there are any pending trips
-        pending_detail = driver.find_element(By.XPATH,
+        requested_detail = driver.find_element(By.XPATH,
                                              "(//div[@class='item-flight background-card border-1 d-flex'])[1]")
 
         # Click on the first pending trip if it exists
-        pending_detail.click()
-        print("Pending trip found and clicked.")
+        requested_detail.click()
+        print("Requested trip found and clicked.")
     except NoSuchElementException:
-        print("No pending trips available.")
-        pytest.fail("No pending trips available. Exiting test.")
+        print("No Requested trips available.")
+        pytest.fail("No Requested trips available. Exiting test.")
         # driver.quit()  # Close the browser
         # sys.exit("Exiting test due to absence of pending trips.")
 
 
     driver.execute_script("window.scrollBy(0, 220);")
 
-    remove_button = WebDriverWait(driver,10).until(
+    cancel_button = WebDriverWait(driver,10).until(
         EC.element_to_be_clickable((By.XPATH,"(//div[@class='btn border border-dark-subtle w-100 rounded-2 btn-danger'])[1]"))
     )
-    remove_button.click()
+    cancel_button.click()
 
     time.sleep(3)
     driver.execute_script("window.scrollBy(0, 260);")
 
     time.sleep(3)
+    driver.execute_script("window.scrollBy(0, 260);")
 
-    confirm_remove_button = driver.find_element(By.XPATH,"(//div[@class='btn btn-danger w-100 rounded-2'])[1]")
-    confirm_remove_button.click()
+
+    reseaon = driver.find_element(By.XPATH,"(//select[@class='form-select'])[1]")
+    reseaon.click()
+
+    reseaon.send_keys(Keys.ARROW_DOWN)
+
+    reseaon.send_keys(Keys.ENTER)
+
+    driver.execute_script("window.scrollBy(0, 260);")
+
+    confirm_cancel_button = driver.find_element(By.XPATH,"(//div[@class='btn btn-danger w-100 rounded-2'])[1]")
+    confirm_cancel_button.click()
     time.sleep(5)
     # Optionally, sleep to allow manual verification
     expected_url = "https://nextdev.netryde.com/customer/trips"
@@ -111,5 +123,5 @@ def test_login_and_trip_list(driver):
 
     assert current_url == expected_url, f"URL assertion failed! Expected: {expected_url}, but got: {current_url}"
 
-    print("Trip removed Successfully")
+    print("Trip cancelled Successfully")
     time.sleep(15)

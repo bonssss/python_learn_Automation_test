@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 @pytest.fixture
 def driver():
     # Set up Chrome WebDriver
-    Service_obj = Service(r"C:\Users\bons\Documents\Website projects\python learn\Automation learn\CHROMEDRIVER.EXE")
+    Service_obj = Service(r"C:\Users\bons\Documents\Website_projects\python learn\netryde\CHROMEDRIVER.EXE")
     driver = webdriver.Chrome(service=Service_obj)
     driver.maximize_window()
     driver.implicitly_wait(5)
@@ -30,6 +30,11 @@ def test_password_display(driver):
     password_field.send_keys("Test@123")
     show_password = driver.find_element(By.XPATH, "(//input[contains(@type,'checkbox')])[1]")
     show_password.click()
+
+    show_password1 = driver.find_element(By.XPATH,"(//input[@type='checkbox'])[1]")
+    show_password1.click()
+    time.sleep(3)
+    show_password1.click()
 
     # Check if the password input field contains the correct value
     password_value = password_field.get_attribute("value")  # Get the input value

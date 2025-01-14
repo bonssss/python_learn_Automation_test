@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 @pytest.fixture
 def driver():
     # Set up Chrome WebDriver
-    Service_obj = Service(r"C:\Users\bons\Documents\Website projects\python learn\Automation learn\CHROMEDRIVER.EXE")
+    Service_obj = Service(r"C:\Users\bons\Documents\Website_projects\python learn\netryde\CHROMEDRIVER.EXE")
     driver = webdriver.Chrome(service=Service_obj)
     driver.maximize_window()
     driver.implicitly_wait(5)
@@ -41,51 +41,101 @@ def test_login_and_trip_list(driver):
     submit_login = driver.find_element(By.XPATH, "(//button[normalize-space()='Login'])[1]")
     submit_login.click()
 
-    time.sleep(10)  # Wait for the page to load and show the result
+    time.sleep(10)
+
+    # Wait for the page to load and show the result
+    humburger_icon = driver.find_element(By.XPATH,"(//div[contains(@class,'burger-icon-white')])[2]")
+    humburger_icon.click()
+    time.sleep(3)
+
+    change_to_driver = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.XPATH, "(//div[@class='item-icon'])[1]"))
+    )
+
+    # Scroll the element into view using JavaScript
+    driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", change_to_driver)
+
+    # Optionally, wait for a short duration to ensure the scrolling has completed
+    time.sleep(1)
+
+    # Click the element
+    change_to_driver.click()
+
+    # Trips = driver.find_element(By.XPATH,"(//a[normalize-space()='Trips'])[2]")
+    # Trips.click()
+    # time.sleep(5)
+    pending = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH,
+                                    "//div[@class='box-collapse scrollFilter d-none d-lg-block']//span[@class='text-sm-medium'][normalize-space()='Pending']"))
+    )
+    pending.click()
+
+    time.sleep(5)
+
+    requested = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH,
+                                    "/html[1]/body[1]/main[1]/div[1]/main[1]/section[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/ul[1]/li[3]/label[1]/span[2]"))
+    )
+    requested.click()
+
+
+
+    time.sleep(5)
+    booked = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH,
+                                    "//div[@class='box-collapse scrollFilter d-none d-lg-block']//span[@class='text-sm-medium'][normalize-space()='Booked']"))
+    )
+    booked.click()
+
+    time.sleep(5)
+    driver.execute_script("window.scrollBy(0, 120);")
+    started = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH,
+                                    "//div[@class='box-collapse scrollFilter d-none d-lg-block']//span[@class='text-sm-medium'][normalize-space()='Started']"))
+    )
+    started.click()
+
+    time.sleep(5)
+    cancelled = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH,
+                                    "//div[@class='box-collapse scrollFilter d-none d-lg-block']//span[@class='text-sm-medium'][normalize-space()='Cancelled']"))
+    )
+    cancelled.click()
+
+    time.sleep(5)
+
+    completed = WebDriverWait(driver,10).until(
+        EC.element_to_be_clickable((By.XPATH,"//div[@class='box-collapse scrollFilter d-none d-lg-block']//span[@class='text-sm-medium'][normalize-space()='Completed']"))
+    )
+
+    completed.click()
+
+    time.sleep(5)
+
+
+
+
+
+
+
 
     print("Login successful!")
 
-    # Optionally, you can add assertions or additional steps to verify the login
 
-    # Now, let's proceed to the trip status filters test
-    filter_checkboxes = {
-        "All": "(//span[@class='checkmark'])[8]",
-        "Pending": "(//span[@class='checkmark'])[9]",
-        "Requested": "(//span[@class='checkmark'])[10]",
-        "Booked": "(//span[@class='checkmark'])[11]",
-        "Started": "(//span[@class='checkmark'])[12]",
-        "Completed": "(//span[@class='checkmark'])[13]",
-        "Canceled": "(//span[@class='checkmark'])[14]"
-    }
 
-    # Navigate to the trip list page
-    driver.get("https://nextdev.netryde.com/driver/trips")  # Update with the correct URL
 
-    # Iterate over each filter checkbox
-    for filter_option, xpath in filter_checkboxes.items():
-        filter_checkbox = driver.find_element(By.XPATH, xpath)
 
-        # Ensure the checkbox is not selected before clicking
-        if not filter_checkbox.is_selected():
-            filter_checkbox.click()
 
-        # Wait for the page to refresh and reflect the filter
-        WebDriverWait(driver, 10).until(
-            EC.visibility_of_all_elements_located((By.XPATH, "(//h6[normalize-space()='Status'])[1]"))
-            # Ensure trip status list is visible
-        )
 
-        # Verify the displayed trips match the selected filter
-        trip_statuses = driver.find_elements(By.XPATH, "(//h6[normalize-space()='Status'])[1]")  # Adjust the XPath accordingly
 
-        for trip_status in trip_statuses:
-            assert filter_option.lower() in trip_status.text.lower(), f"Expected status '{filter_option}' but found {trip_status.text}"
 
-        # Deselect the filter to test the next one
-        if filter_checkbox.is_selected():
-            filter_checkbox.click()
 
-        # Allow time for page refresh before testing the next filter
-        time.sleep(1)
 
-    print("All filters passed successfully!")
+
+
+
+
+
+
+
+
