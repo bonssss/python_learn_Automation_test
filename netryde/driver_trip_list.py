@@ -41,8 +41,29 @@ def test_login_and_trip_list(driver):
     submit_login = driver.find_element(By.XPATH, "(//button[normalize-space()='Login'])[1]")
     submit_login.click()
 
-    time.sleep(10)  # Wait for the page to load and show the result
+    time.sleep(10)
 
+    # Wait for the page to load and show the result
+    humburger_icon = driver.find_element(By.XPATH,"(//div[contains(@class,'burger-icon-white')])[2]")
+    humburger_icon.click()
+    time.sleep(3)
+
+    change_to_driver = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.XPATH, "(//div[@class='item-icon'])[1]"))
+    )
+
+    # Scroll the element into view using JavaScript
+    driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", change_to_driver)
+
+    # Optionally, wait for a short duration to ensure the scrolling has completed
+    time.sleep(1)
+
+    # Click the element
+    change_to_driver.click()
+
+    # Trips = driver.find_element(By.XPATH,"(//a[normalize-space()='Trips'])[2]")
+    # Trips.click()
+    # time.sleep(5)
     pending = WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.XPATH,
                                     "//div[@class='box-collapse scrollFilter d-none d-lg-block']//span[@class='text-sm-medium'][normalize-space()='Pending']"))

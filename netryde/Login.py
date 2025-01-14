@@ -44,7 +44,7 @@ def test_login_and_trip_list(driver):
 
     # Wait for page to load
     WebDriverWait(driver, 10).until(
-        EC.url_to_be("https://nextdev.netryde.com/driver/trips")
+        EC.url_to_be("https://nextdev.netryde.com/customer/book")
     )
 
     time.sleep(15)  # Wait for the page to load and show the result
