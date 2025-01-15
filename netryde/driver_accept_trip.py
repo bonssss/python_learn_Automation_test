@@ -1,5 +1,7 @@
 import time
 from time import sleep
+import os
+from dotenv import load_dotenv
 
 import pytest
 from selenium import webdriver
@@ -8,6 +10,9 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+load_dotenv()
+username = os.getenv("NETRYDE_USERNAME")
+password = os.getenv("NETRYDE_PASSWORD")
 
 
 @pytest.fixture
@@ -22,7 +27,7 @@ def driver():
     driver.quit()
 
 
-def test_login_and_trip_list(driver):
+def test_login_and_trip_accept(driver):
     driver.get("https://nextdev.netryde.com/")
     print(driver.title)
 
@@ -31,9 +36,9 @@ def test_login_and_trip_list(driver):
     time.sleep(3)
     driver.find_element(By.XPATH, "(//button[@class='btn btn-black'][normalize-space()='Sign In'])[1]").click()
     driver.find_element(By.XPATH, "(//input[contains(@class,'form-control username')])[1]").send_keys(
-        "gaveda6250@fenxz.com")
+        username)
     password_field = driver.find_element(By.XPATH, "(//input[@placeholder='Password'])[1]")
-    password_field.send_keys("Test@123")
+    password_field.send_keys(password)
     show_password = driver.find_element(By.XPATH, "(//input[contains(@type,'checkbox')])[1]")
     show_password.click()
 
