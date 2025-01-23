@@ -11,7 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 @pytest.fixture
 def driver():
-    Service_obj = Service(r"C:\Users\bons\Documents\Website_projects\python learn\netryde\CHROMEDRIVER.EXE")
+    Service_obj = Service(r"C:\Users\servi\Documents\Netryde_selenium\python_learn_Automation_test\netryde\CHROMEDRIVER.EXE")
     driver = webdriver.Chrome(service=Service_obj)
     driver.maximize_window()
     yield driver

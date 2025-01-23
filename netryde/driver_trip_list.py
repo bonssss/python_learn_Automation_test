@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 @pytest.fixture
 def driver():
     # Set up Chrome WebDriver
-    Service_obj = Service(r"C:\Users\bons\Documents\Website_projects\python learn\netryde\CHROMEDRIVER.EXE")
+    Service_obj = Service(r"C:\Users\servi\Documents\Netryde_selenium\python_learn_Automation_test\netryde\CHROMEDRIVER.EXE")
     driver = webdriver.Chrome(service=Service_obj)
     driver.maximize_window()
     driver.implicitly_wait(5)
@@ -44,22 +44,22 @@ def test_login_and_trip_list(driver):
     time.sleep(10)
 
     # Wait for the page to load and show the result
-    humburger_icon = driver.find_element(By.XPATH,"(//div[contains(@class,'burger-icon-white')])[2]")
-    humburger_icon.click()
-    time.sleep(3)
-
-    change_to_driver = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.XPATH, "(//div[@class='item-icon'])[1]"))
-    )
-
-    # Scroll the element into view using JavaScript
-    driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", change_to_driver)
-
-    # Optionally, wait for a short duration to ensure the scrolling has completed
-    time.sleep(1)
-
-    # Click the element
-    change_to_driver.click()
+    # humburger_icon = driver.find_element(By.XPATH,"(//div[contains(@class,'burger-icon-white')])[2]")
+    # humburger_icon.click()
+    # time.sleep(3)
+    #
+    # change_to_driver = WebDriverWait(driver, 10).until(
+    #     EC.presence_of_element_located((By.XPATH, "(//div[@class='item-icon'])[1]"))
+    # )
+    #
+    # # Scroll the element into view using JavaScript
+    # driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", change_to_driver)
+    #
+    # # Optionally, wait for a short duration to ensure the scrolling has completed
+    # time.sleep(1)
+    #
+    # # Click the element
+    # change_to_driver.click()
 
     # Trips = driver.find_element(By.XPATH,"(//a[normalize-space()='Trips'])[2]")
     # Trips.click()
@@ -88,7 +88,8 @@ def test_login_and_trip_list(driver):
     booked.click()
 
     time.sleep(5)
-    driver.execute_script("window.scrollBy(0, 120);")
+    driver.execute_script("window.scrollBy(0,200);")
+    time.sleep(3)
     started = WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.XPATH,
                                     "//div[@class='box-collapse scrollFilter d-none d-lg-block']//span[@class='text-sm-medium'][normalize-space()='Started']"))
@@ -96,6 +97,7 @@ def test_login_and_trip_list(driver):
     started.click()
 
     time.sleep(5)
+    driver.execute_script("window.scrollBy(0,100);")
     cancelled = WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.XPATH,
                                     "//div[@class='box-collapse scrollFilter d-none d-lg-block']//span[@class='text-sm-medium'][normalize-space()='Cancelled']"))
