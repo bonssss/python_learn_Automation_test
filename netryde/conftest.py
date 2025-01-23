@@ -9,10 +9,10 @@ def pytest_configure(config):
     current_date = datetime.datetime.now().strftime("%Y-%m-%d")
 
     # Define the base directory where reports will be saved
-    base_dir = r"C:\Users\bons\Documents\Website_projects\python learn\netryde"
+    base_dir = r"C:\Users\servi\Documents\Netryde_selenium\python_learn_Automation_test\netryde"
 
     # Create the 'Reports' directory within the base directory
-    reports_dir = os.path.join(base_dir, 'Report')
+    reports_dir = os.path.join(base_dir, 'Report-1-23-2025')
     os.makedirs(reports_dir, exist_ok=True)
 
     # Retrieve the test file name without extension
